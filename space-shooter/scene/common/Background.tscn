@@ -1,0 +1,19 @@
+[gd_scene format=2]
+
+[node name="Background" type="Node2D"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="BacgroundLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="GroundColorRect" type="ColorRect" parent="BacgroundLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.12549, 0.12549, 0.12549, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
