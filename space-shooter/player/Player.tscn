@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://player/Shoot.tscn" type="PackedScene" id=3]
-[ext_resource path="res://player/Movement.tscn" type="PackedScene" id=4]
+[ext_resource path="res://player/Abilities.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
@@ -26,8 +25,6 @@ shape = SubResource( 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 shape = SubResource( 2 )
 
-[node name="Abilities" type="Node" parent="."]
+[node name="Abilities" parent="." instance=ExtResource( 3 )]
 
-[node name="Movement" parent="Abilities" instance=ExtResource( 4 )]
-
-[node name="Shoot" parent="Abilities" instance=ExtResource( 3 )]
+[editable path="Abilities"]

@@ -1,9 +1,21 @@
 extends Node
 
 
-export var movement_speed: float = 500.0
-export var movement_acceleration: float = 1000.0
-export var movement_deceleration: float = 2000.0
+var velocity_lerp_weight: float = 0.2
+var velocity: Vector2 = Vector2.ZERO
+var movement_speed setget movement_speed_set, movement_speed_get
+
+
+func movement_speed_set(value):
+	movement_speed = value
+
+
+func movement_speed_get():
+	return movement_speed
+
+
+func _ready() -> void:
+	movement_speed_set(500.0)
 
 
 # Get movement direction range of -1, 0, 1
@@ -24,6 +36,23 @@ func get_normalized_direction() -> Vector2:
 	return get_direction().normalized()
 
 
+func calculate_velocity(current_velocity) -> Vector2:
+	current_velocity = Vector2.ZERO
+	current_velocity.x = lerp(velocity.x, 
+			movement_speed_get() * get_normalized_direction().x, 
+			velocity_lerp_weight)
+	current_velocity.y = lerp(velocity.y, 
+			movement_speed_get() * get_normalized_direction().y, 
+			velocity_lerp_weight)
+	if current_velocity.length() < 0.1:
+		current_velocity = Vector2.ZERO
+	velocity = current_velocity
+	return velocity
+
+
+func move() -> void:
+	velocity = owner.owner.move_and_slide(calculate_velocity(velocity))
+
+
 func _physics_process(_delta: float) -> void:
-	if owner.get_class() == "KinematicBody2D": # Check owner type
-		var _a = owner.move_and_slide(get_normalized_direction() * movement_speed)
+	move()
