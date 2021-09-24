@@ -6,6 +6,11 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	debug_quit_game(event)
+
+
+# Quick Close Game Window
+func debug_quit_game(event: InputEvent) -> void:
 	if event is InputEvent:
 		if event.is_action_pressed("quit_game"):
 			get_tree().quit()
